@@ -1,4 +1,4 @@
-import polars
+import polars as pl
 import csvReader.fileReader
 
 
@@ -10,10 +10,10 @@ def readFile(fileToRead):
         return result
 
 
-def read_file_binary(file_to_read):
-    with open(file_to_read, 'rb') as file:
-        contents = file.read().decode()
-    return contents.split("\r\n")
+# def read_file_binary(file_to_read):
+#     with open(file_to_read, 'rb') as file:
+#         contents = file.read().decode()
+#     return contents.split("\r\n")
 
 
 dateGatheredString = 'Information generated:\\b0  '
@@ -24,11 +24,8 @@ country = None
 rows = []
 
 # TODO - This needs to find the file in the folder as a normal rtf with no special name
-# rtfLines = readFile('Trade-Register-1950-2021.rtf')
-rtfLines = readFile('Trade-Register-1950-2021-downloaded.rtf', )
-# rtfLines = read_file_binary('Trade-Register-1950-2021-downloaded.rtf', )
+rtfLines = readFile('Trade-Register-1950-2021-downloaded.rtf')
 for line in rtfLines:
-
     # At the start we only want to look for the date
     if searchFor == 'Date':
         if dateGatheredString in line:
@@ -66,7 +63,7 @@ for line in rtfLines:
                 else:
                     country = recipient.split('\\tab')[0]
                     countryData = recipient.split('\\tab')[1:]
-                row = [supplier, country, countryData[0], countryData[1], countryData[2], countryData[3],
+                row = [supplier, country, countryData[0], countryData[1], countryData[2], countryData[3], # type: ignore
                        countryData[4],
                        countryData[5], countryData[6].split('\\par')[0]]
                 rows.append(
@@ -74,7 +71,7 @@ for line in rtfLines:
 
 
 # Hard Coded as getting the actual value is a bit of a pain
-df = polars.DataFrame(rows, schema=["Supplier", "Recipient", "Ordered", "No. Designation", "Weapon Description",
+df = pl.DataFrame(rows, schema=["Supplier", "Recipient", "Ordered", "No. Designation", "Weapon Description",
 
                                     "Year(s) Weapon of Order", "Year Delivery", "Of Delivered", "No. Comments"])
 df.write_csv("processed_rtf.csv")
@@ -90,4 +87,4 @@ print(f"missing comments: {missing_count}")
 
 csv_df = csvReader.fileReader.read_csv_data("../csvReader/data.txt")
 joinedDF = csvReader.fileReader.joinedTable(df, csv_df)
-joinedDF.write_csv("joined_data.csv")
+joinedDF.write_csv("joined_data_test.csv")

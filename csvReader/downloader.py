@@ -5,30 +5,31 @@ import datetime
 
 
 
-#Get date today for file
+# #Get date today for file
 day = datetime.datetime.today().strftime('%d-%m-%Y')
 
 
-#Get our data range
-htmlResponse = requests.get("https://armstrade.sipri.org/armstrade/html/tiv/index.php").text
-soup = bs(htmlResponse, 'html.parser')
-#Get the first option in the select tag and second of the option tag under it as the first is just 'Select from year'
-years = soup.find_all('select', {'name':'low_year'})[0].find_all('option')
-yearMax = years[1].text
-yearMin = years[-1].text
+# #Get our data range
+# htmlResponse = requests.get("https://armstrade.sipri.org/armstrade/html/tiv/index.php").text
+# soup = bs(htmlResponse, 'html.parser')
+# #Get the first option in the select tag and second of the option tag under it as the first is just 'Select from year'
+# years = soup.find_all('select', {'name':'low_year'})[0].find_all('option')
+# yearMax = years[1].text
+# yearMin = years[-1].text
 
-#Check if max year is current year in date.txt
-file = open("date.txt", "r")
-fileLines = file.readlines()
-file.close()
-if fileLines[0] == yearMax:
-    print("No new data to download")
-    exit()
+# #Check if max year is current year in date.txt
+# file = open("date_test.txt", "r")
+# fileLines = file.readlines()
+# file.close()
+# if fileLines[0] == yearMax:
+#     print("No new data to download")
+#     exit()
 
-
+yearMin = "1950"
+yearMax = "2020"
 
 #Start the file ouput - Just to setup what would usually be in the file if the site didn't crash on these large requests
-file = open("data.txt", "w")
+file = open("data_test.txt", "w")
 file.write("SIPRI Transfers Database \n")
 file.write("\n")
 file.write("\n")
@@ -40,7 +41,7 @@ file.write("Deal ID;Seller;Buyer;Designation;Description;Armament category;Order
 #Get the data
 for yr in range(int(yearMin),int(yearMax)+1):
     data={'altout':'C', #needs to be C idk why - probs for csv
-        'filetype':'DealsAndTIVs.txt', #Name of the file
+        'filetype':'DealsAndTIVs_test.txt', #Name of the file
         'low_year':str(yr), #Start year
         'high_year':str(yr), #End year
         'buyer':'All',
@@ -72,7 +73,7 @@ print("Data finished for all years")
 print("Updating date.txt")
 
 #Update date.txt
-file = open("date.txt", "w")
+file = open("date_test.txt", "w")
 file.write(yearMax)
 file.close()
 
