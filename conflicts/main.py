@@ -1,12 +1,10 @@
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import polars as pl
-from pathlib import Path
 
+print("here")
 # Read the data
-data = pd.read_excel('conflicts\SIPRI-Milex-data-1949-2022.xlsx', sheet_name='Constant (2021) US$', index_col=0, header=5)
+data = pd.read_excel('conflicts\\SIPRI-Milex-data-1949-2022.xlsx', sheet_name='Constant (2021) US$', index_col=0, header=5)
 data = data.drop(['Unnamed: 1', 'Notes'], axis=1)
 
 # Unused index names:
@@ -15,7 +13,7 @@ extra_index = ['Africa', 'North Africa','sub-Saharan Africa','Americas','Central
 'Europe','Eastern Europe','Western Europe','Middle East']
 
 data = data.drop(extra_index, axis=0)
-data = data.drop(data.iloc[0])
+data = data.drop(data.iloc[0]) # type: ignore
 
 data = data.fillna(-1)
 data = data.replace(['...', 'xxx'], -1)

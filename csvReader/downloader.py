@@ -41,13 +41,14 @@ file.write("Deal ID;Seller;Buyer;Designation;Description;Armament category;Order
 #Get the data
 for yr in range(int(yearMin),int(yearMax)+1):
     data={'altout':'C', #needs to be C idk why - probs for csv
-        'filetype':'DealsAndTIVs_test.txt', #Name of the file
+        'filetype':'DealsAndTIVs.txt', #Name of the file
         'low_year':str(yr), #Start year
         'high_year':str(yr), #End year
         'buyer':'All',
         'seller': 'All'
     }
     response = requests.post('https://armstrade.sipri.org/armstrade/html/tiv/swout.php',data=data).text.split('\n')
+    print(response)
     #Format is
     #Line 0: Header + if there is any data
     #Line 1: Empty
