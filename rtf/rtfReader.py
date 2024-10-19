@@ -1,6 +1,8 @@
+from os import read
 import polars as pl
-import csvReader.fileReader
+import csv_reader
 
+reader = csv_reader.CSVReader()
 
 def readFile(fileToRead):
     with open(fileToRead, 'r') as file:
@@ -8,6 +10,8 @@ def readFile(fileToRead):
         file.close()
 
         return result
+
+
 
 
 # def read_file_binary(file_to_read):
@@ -69,7 +73,6 @@ for line in rtfLines:
                 rows.append(
                     [element.strip() for element in row])
 
-
 # Hard Coded as getting the actual value is a bit of a pain
 df = pl.DataFrame(rows, schema=["Supplier", "Recipient", "Ordered", "No. Designation", "Weapon Description",
 
@@ -77,6 +80,7 @@ df = pl.DataFrame(rows, schema=["Supplier", "Recipient", "Ordered", "No. Designa
 df.write_csv("processed_rtf.csv")
 # TODO Set the type of the columns
 # print(df)
+# import sys; sys.exit()
 
 # find if the unique values in 'col1' contain '-'
 contains_dash = df["Year(s) Weapon of Order"].str.contains('-').unique()
@@ -85,6 +89,6 @@ print(contains_dash)
 missing_count = df['No. Comments'].is_null().sum()
 print(f"missing comments: {missing_count}")
 
-csv_df = csvReader.fileReader.read_csv_data("../csvReader/data.txt")
-joinedDF = csvReader.fileReader.joinedTable(df, csv_df)
+csv_df = reader.read_csv_data("../csvReader/data.txt")
+joinedDF = reader.joined_table(df, csv_df)
 joinedDF.write_csv("joined_data_test.csv")

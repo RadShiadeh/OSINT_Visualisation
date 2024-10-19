@@ -2,9 +2,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-print("here")
+
 # Read the data
-data = pd.read_excel('conflicts\\SIPRI-Milex-data-1949-2022.xlsx', sheet_name='Constant (2021) US$', index_col=0, header=5)
+data = pd.read_excel('SIPRI-Milex-data-1949-2022.xlsx', sheet_name='Constant (2021) US$', index_col=0, header=5)
 data = data.drop(['Unnamed: 1', 'Notes'], axis=1)
 
 # Unused index names:
@@ -19,7 +19,7 @@ data = data.fillna(-1)
 data = data.replace(['...', 'xxx'], -1)
 
 # Reading in UCDP data
-prio_df = pd.read_csv('conflicts\\ucdp-prio-acd-221.csv', header=0)
+prio_df = pd.read_csv('ucdp-prio-acd-221.csv', header=0)
 
 
 # remove unnecessary columns
