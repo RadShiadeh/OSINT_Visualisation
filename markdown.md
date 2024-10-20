@@ -5,8 +5,8 @@ downloader.py:
 
 
 make a data pipline:
-    1 api rec get the csv
-    2 rtf 
+    1 api rec get the csv done
+    2 rtf done 
     3 clean both
     4 join
     5 create numeric
