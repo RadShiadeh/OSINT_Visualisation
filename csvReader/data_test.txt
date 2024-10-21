@@ -1,6 +1,0 @@
-SIPRI Transfers Database 
-
-
- Database search results for buyer 'All Countries' and seller  'All Countries' and the years from 1950 to 2020 - (created: 19-10-2024)
-
-Deal ID;Seller;Buyer;Designation;Description;Armament category;Order date;Order date is estimate;Numbers delivered;Numbers delivered is estimate;Delivery year;Delivery year is estimate;Status;SIPRI estimate;TIV deal unit;TIV delivery values;Local production

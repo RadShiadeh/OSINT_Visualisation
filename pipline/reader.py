@@ -186,7 +186,7 @@ class Reader():
             return result
 
 # -----------------------------------------------------------------------------------------------------------------------
-# testing
+
 # def main():
 #     reader = Reader()
 #     trade_register_path = './data/Trade-Register-1950-2021-downloaded.rtf'
